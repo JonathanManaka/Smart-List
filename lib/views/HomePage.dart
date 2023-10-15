@@ -128,7 +128,7 @@ class HomePage extends ConsumerWidget {
                                     ),
                                   ),
                                 ),
-                                Padding(
+                                /***Padding(
                                   padding: EdgeInsets.only(right: 5),
                                   child: Container(
                                     height: 20,
@@ -144,7 +144,7 @@ class HomePage extends ConsumerWidget {
                                       ),
                                     ),
                                   ),
-                                )
+                                )**/
                               ]),
                             )
                             //End of grocery list card

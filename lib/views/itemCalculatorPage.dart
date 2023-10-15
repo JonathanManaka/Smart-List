@@ -158,8 +158,9 @@ class GroceryItemCalculatorPage extends ConsumerWidget {
                     .savePrevItemsToDb();
 
                 double change = ref
-                    .read(groceryListItemCalculatorProvider.notifier)
-                    .roundDouble(prevItemsTotal - ref.read(totalProvider));
+                        .read(groceryListItemCalculatorProvider.notifier)
+                        .roundDouble(prevItemsTotal - ref.read(totalProvider)) *
+                    1;
                 String message = '';
                 print(change);
 
@@ -169,7 +170,7 @@ class GroceryItemCalculatorPage extends ConsumerWidget {
                   if (ref.read(totalProvider) < prevItemsTotal) {
                     message = 'You saved : $change on this grocery';
                   } else if (ref.read(totalProvider) > prevItemsTotal) {
-                    message = 'You lost $change on this grocery';
+                    message = 'You lost $change on this grocery..';
                   } else if (ref.read(totalProvider) == prevItemsTotal) {
                     message = 'Your shopping';
                   }

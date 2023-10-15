@@ -55,11 +55,11 @@ class GroceryItemNotifier
         itemQuantity: tempItemQuantity));
   }
 
-//This function returns the total of all the item prices
+//This function returns the total of all the item prices multiply by its quantity
   double getTotalItems() {
     double total = 0.0;
     for (var items in state) {
-      total += items.itemCalcPrice;
+      total += (items.itemCalcPrice * items.itemQuantity);
     }
     return total;
   }

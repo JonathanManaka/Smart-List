@@ -44,9 +44,11 @@ dependencies:
   sqflite: any
 
 flutter_native_splash:
-  image: assets/splashList.png
+  image: assets/SplashScrrenIcon.png
   color: "#FFFFFF"
   android: true
+  iod: true
+  web: false
 
 dev_dependencies:
   flutter_test:

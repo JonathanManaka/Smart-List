@@ -128,7 +128,8 @@ class HomePage extends ConsumerWidget {
                                     ),
                                   ),
                                 ),
-                                /***Padding(
+                                /** 
+                                * Padding(
                                   padding: EdgeInsets.only(right: 5),
                                   child: Container(
                                     height: 20,
@@ -137,6 +138,7 @@ class HomePage extends ConsumerWidget {
                                       onTap: () {
                                         SQLHelper.deleteAllLists();
                                         SQLHelper.deleteAllItems();
+                                        SQLHelper.deleteAllPrevItems();
                                       },
                                       child: Image.asset(
                                         'assets/groceryListAnalysisbtn.png',
@@ -144,7 +146,8 @@ class HomePage extends ConsumerWidget {
                                       ),
                                     ),
                                   ),
-                                )**/
+                                )
+                                * */
                               ]),
                             )
                             //End of grocery list card

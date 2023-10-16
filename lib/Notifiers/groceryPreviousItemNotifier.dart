@@ -22,6 +22,7 @@ class GroceryPreviousItemNotifie
       addPreviousItem(GroceryPreviousItemModel(
           prevItemId: '',
           prevItemPrice: items.itemCalcPrice,
+          prevItemQnty: items.itemQuantity,
           prevItemCreatedDate: formattedItemNowDate,
           prevItemCalcFk: items.itemCalcId));
     }
@@ -37,9 +38,13 @@ class GroceryPreviousItemNotifie
   void savePrevItemsToDb() async {
     for (var prevItems in state) {
       int id = int.parse(prevItems.prevItemCalcFk);
+
       deletePreviousItemsbyIDFromDb(id);
-      await SQLHelper.createPreviousItem(prevItems.prevItemPrice.toString(),
-          prevItems.prevItemCreatedDate, int.parse(prevItems.prevItemCalcFk));
+      await SQLHelper.createPreviousItem(
+          prevItems.prevItemPrice.toString(),
+          prevItems.prevItemCreatedDate,
+          int.parse(prevItems.prevItemCalcFk),
+          prevItems.prevItemQnty);
     }
   }
 
@@ -54,6 +59,20 @@ class GroceryPreviousItemNotifie
     }
 
     return prevItemPrice;
+  }
+
+  //Get previous Item quantity from db
+  Future<int> getPreviousItemQntyFromDb(int id) async {
+    List<Map<String, dynamic>> prevItems =
+        await SQLHelper.selectPrevItemQuantity(id);
+    int prevItemQnty = 0;
+    if (prevItems.isNotEmpty) {
+      for (var previousItems in prevItems) {
+        prevItemQnty = previousItems['prevItemQuantity'];
+      }
+    }
+
+    return prevItemQnty;
   }
 
   Future<String> getPrevItemCreatedDateFromDb(int id) async {
@@ -73,7 +92,13 @@ class GroceryPreviousItemNotifie
       List<GroceryItemCalculatorModel> calcItems) async {
     double total = 0.0;
     for (var items in calcItems) {
-      total += await getPreviousItemPriceFromDb(int.parse(items.itemCalcId));
+      double itemPrice =
+          await getPreviousItemPriceFromDb(int.parse(items.itemCalcId));
+      int itemQnty =
+          await getPreviousItemQntyFromDb(int.parse(items.itemCalcId));
+      print(itemQnty);
+      double priceTot = itemPrice * itemQnty;
+      total += priceTot;
     }
     return total;
   }

@@ -19,6 +19,7 @@ class SQLHelper {
         "id INTEGER PRIMARY KEY AUTOINCREMENT,"
         "prevItemPrice TEXT,"
         "prevItemCreatedate TEXT,"
+        "prevItemQuantity INTEGER,"
         "prevItemFK INTEGER, FOREIGN KEY (prevItemFK) REFERENCES listName (id)"
         ")");
   }
@@ -76,13 +77,14 @@ class SQLHelper {
   }
 
 //Create previous items
-  static Future<void> createPreviousItem(
-      String prevPrice, String prevCreatedDate, int prevFk) async {
+  static Future<void> createPreviousItem(String prevPrice,
+      String prevCreatedDate, int prevFk, int prevQnty) async {
     final db = await SQLHelper.db();
     final data = {
       'prevItemPrice': prevPrice,
       'prevItemCreatedate': prevCreatedDate,
       'prevItemFK': prevFk,
+      'prevItemQuantity': prevQnty
     };
     db.insert('previousItem', data,
         conflictAlgorithm: sql.ConflictAlgorithm.replace);
@@ -98,6 +100,14 @@ class SQLHelper {
     final db = await SQLHelper.db();
     return db.rawQuery(
         'SELECT prevItemPrice FROM previousItem WHERE prevItemFK=?', [fk]);
+  }
+  //Selecting only prevItemQuantity
+
+  static Future<List<Map<String, dynamic>>> selectPrevItemQuantity(
+      int fk) async {
+    final db = await SQLHelper.db();
+    return db.rawQuery(
+        'SELECT prevItemQuantity FROM previousItem WHERE prevItemFK=?', [fk]);
   }
 
   //Select only prevItemCreatedDate by id
@@ -152,6 +162,18 @@ class SQLHelper {
       result = await db.delete("item");
     } catch (err) {
       debugPrint("Something went wrong while deleting an item: $err");
+    }
+    return result;
+  }
+
+  //Delete all previous items
+  static Future<int> deleteAllPrevItems() async {
+    final db = await SQLHelper.db();
+    int result = 0;
+    try {
+      result = await db.delete("previousItem");
+    } catch (err) {
+      debugPrint("Something went wrong while deleting an Previous item: $err");
     }
     return result;
   }

@@ -13,7 +13,9 @@ class GroceryItemCalculatorPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final itemsCalculate = ref.watch(groceryListItemCalculatorProvider);
-    double budget = ref.watch(budgetProvider);
+    double budget = ref
+        .read(groceryListItemCalculatorProvider.notifier)
+        .roundDouble(ref.watch(budgetProvider));
     double budgetLeft = ref.watch(budgetLeftProvider);
     double total = ref.watch(totalProvider);
 
@@ -132,6 +134,8 @@ class GroceryItemCalculatorPage extends ConsumerWidget {
                           //End of grocery list card
                         ],
                       )))),
+
+          //This button save the items calculated to db and show results message
           Flexible(
               child: Container(
             width: 200,
@@ -143,6 +147,7 @@ class GroceryItemCalculatorPage extends ConsumerWidget {
                       .titleSmall!
                       .copyWith(color: Colors.white)),
               onPressed: () async {
+                String message = '';
                 //Calculate the total itemPrices of the previous items
                 double prevItemsTotal = await ref
                     .read(groceryPreviousItemProvider.notifier)
@@ -158,21 +163,19 @@ class GroceryItemCalculatorPage extends ConsumerWidget {
                     .savePrevItemsToDb();
 
                 double change = ref
-                        .read(groceryListItemCalculatorProvider.notifier)
-                        .roundDouble(prevItemsTotal - ref.read(totalProvider)) *
-                    1;
-                String message = '';
-                print(change);
+                    .read(groceryListItemCalculatorProvider.notifier)
+                    .roundDouble(prevItemsTotal - ref.read(totalProvider));
 
                 if (prevItemsTotal == 0) {
                   message = 'You spent ${ref.read(totalProvider)}';
                 } else {
                   if (ref.read(totalProvider) < prevItemsTotal) {
-                    message = 'You saved : $change on this grocery';
+                    message = 'You saved : $change';
                   } else if (ref.read(totalProvider) > prevItemsTotal) {
-                    message = 'You lost $change on this grocery..';
+                    message = 'You lost ${change * -1}.';
                   } else if (ref.read(totalProvider) == prevItemsTotal) {
-                    message = 'Your shopping';
+                    message =
+                        'Your current spending is the same as your last spendig';
                   }
                 }
 

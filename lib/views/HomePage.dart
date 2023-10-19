@@ -349,6 +349,7 @@ class HomePage extends ConsumerWidget {
                       SizedBox(
                         height: 15,
                       ),
+                      //Delete list button
                       Container(
                         width: 120,
                         child: ElevatedButton(

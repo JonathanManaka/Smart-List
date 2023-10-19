@@ -25,7 +25,7 @@ class HomePage extends ConsumerWidget {
           child: InkWell(
             splashColor: Palette.PrimaryColor,
             onTap: () {
-              ref.read(groceryListDataProvider.notifier).getListsFromDb(ref);
+              context.router.replace(HomeRoute());
             },
             child: Image.asset(
               'assets/reload.png',
@@ -62,7 +62,8 @@ class HomePage extends ConsumerWidget {
                               .read(groceryListItemCalculatorProvider.notifier)
                               .getItemFromDb(id);
                           context.router.push(GroceryItemCalculatorRoute(
-                              title: groceryList[index].listDescriptionData));
+                              title: groceryList[index].listDescriptionData,
+                              titleName: ''));
                           ref.read(budgetProvider.notifier).state = 0.0;
                           ref.read(budgetLeftProvider.notifier).state = 0.0;
                           ref.read(totalProvider.notifier).state = 0.0;
@@ -360,6 +361,9 @@ class HomePage extends ConsumerWidget {
                                   .read(groceryListDataProvider.notifier)
                                   .deleteItemFromDb(id);
 
+                              ref
+                                  .read(groceryPreviousItemProvider.notifier)
+                                  .deletePrevItemsFromDb(id, ref);
                               ref
                                   .read(groceryListDataProvider.notifier)
                                   .getListsFromDb(ref);

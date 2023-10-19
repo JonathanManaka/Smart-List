@@ -129,6 +129,17 @@ class SQLHelper {
     }
   }
 
+  //Delete PreItem
+  static Future<void> deletePrevItems(int id) async {
+    final db = await SQLHelper.db();
+
+    try {
+      await db.delete("previousItem", where: "prevItemFK = ?", whereArgs: [id]);
+    } catch (err) {
+      debugPrint("Something went wrong while deleting an Previous item: $err");
+    }
+  }
+
   //Reading item where Fk is equal to the list PK
   static Future<List<Map<String, dynamic>>> getItemByListFk(int fk) async {
     final db = await SQLHelper.db();

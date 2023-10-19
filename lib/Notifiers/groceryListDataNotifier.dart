@@ -14,8 +14,9 @@ class GroceryListDataNotifier
   }
 
   void getListsFromDb(WidgetRef ref) async {
-    List<Map<String, dynamic>> data = await SQLHelper.selectAllLists();
     ref.read(groceryListDataProvider).clear();
+    List<Map<String, dynamic>> data = await SQLHelper.selectAllLists();
+
     for (var lists in data) {
       int id = lists['id'];
       String listDesc = lists['listDescription'];
@@ -39,10 +40,14 @@ class GroceryListDataNotifier
   }
 
   void deleteListFromDb(int id) async {
-    await SQLHelper.deleteList(id);
+    await SQLHelper.deleteList(id).whenComplete(() {
+      print('Done deleting lists');
+    });
   }
 
   void deleteItemFromDb(int id) async {
-    await SQLHelper.deleteItems(id);
+    await SQLHelper.deleteItems(id).whenComplete(() {
+      print('Done deleting item');
+    });
   }
 }

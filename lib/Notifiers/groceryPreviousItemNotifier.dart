@@ -102,4 +102,12 @@ class GroceryPreviousItemNotifie
     }
     return total;
   }
+
+  //Deleing previous item from Db
+
+  Future<void> deletePrevItemsFromDb(int id, WidgetRef ref) async {
+    await SQLHelper.deleteAllPrevItems().whenComplete(() {
+      print('Done deleting previous items');
+    });
+  }
 }

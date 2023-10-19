@@ -62,8 +62,9 @@ class HomePage extends ConsumerWidget {
                               .read(groceryListItemCalculatorProvider.notifier)
                               .getItemFromDb(id);
                           context.router.push(GroceryItemCalculatorRoute(
-                              title: groceryList[index].listDescriptionData,
-                              titleName: ''));
+                            title: '',
+                            titleName: groceryList[index].listDescriptionData,
+                          ));
                           ref.read(budgetProvider.notifier).state = 0.0;
                           ref.read(budgetLeftProvider.notifier).state = 0.0;
                           ref.read(totalProvider.notifier).state = 0.0;

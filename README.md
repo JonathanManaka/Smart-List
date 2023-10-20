@@ -2,7 +2,7 @@
 # smart_grocery_list
 
 # Smart List
->>>>>>> df4f4d11e5da4fae25496adcc5b22ee40682b519
+
 
 
 

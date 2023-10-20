@@ -32,7 +32,8 @@
     - https://www.figma.com/file/CY1c28OMjFtguh9Z54J4Cw/Smart-Shopping-List?type=design&node-id=0%3A1&mode=design&t=JjIBcfDMmfj3fTCO-1
 
     - font-family: Annie Use Your Telescope for title except for buttons and other places I used poppins
-- color pallete: ![Alt text](<Color pallete.png>)
+- color pallete: ![Color pallete](https://github.com/JonathanManaka/Smart-List/assets/48018676/03baadba-562a-467d-b906-c938974175ae)
+
 - icons are from: https://www.flaticon.com/
 - Animated splash video is from: https://lottiefiles.com/
 
@@ -42,7 +43,7 @@
 - I had a challenge with getting grocery lists form database - The problem was caused by using the same state to manage requests from db and creating new state by the user.
 
 
-# Screenshot
+# Screenshots
 ![Frame 1](https://github.com/JonathanManaka/Smart-List/assets/48018676/272f95ce-4c12-43ed-be26-f6641c2624e7)
 
 

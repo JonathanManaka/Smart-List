@@ -23,7 +23,6 @@
 
 
 ## 🚀 State Management / Structure
-
 - Flutter riverpod
 
 ## 🎨 Design
